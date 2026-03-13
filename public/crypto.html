@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多算法加密工具箱</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="module-page">
+    <div class="tech-bg">
+      <div class="orb orb-green"></div>
+      <div class="orb orb-amber"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>Watermark Lab</span>
+        </a>
+        <nav class="topnav">
+          <a href="invisible.html">不可见水印</a>
+          <a href="visible.html">可见水印</a>
+          <a class="active" href="crypto.html">加密工具箱</a>
+          <a href="library.html">作品库</a>
+        </nav>
+      </header>
+
+      <main class="module-main">
+        <section class="page-head panel-glass">
+          <div>
+            <p class="eyebrow">Module 03</p>
+            <h1>多算法加密工具箱</h1>
+            <p>支持文本和文件加密，提供 6 种算法可选。解密阶段自动识别密文和加密文件所使用的算法。</p>
+          </div>
+          <a class="back-link" href="index.html">返回功能首页</a>
+        </section>
+
+        <section class="algorithm-strip panel-glass">
+          <div class="algorithm-chip">AES-128-GCM</div>
+          <div class="algorithm-chip">AES-192-GCM</div>
+          <div class="algorithm-chip">AES-256-GCM</div>
+          <div class="algorithm-chip">ChaCha20-Poly1305</div>
+          <div class="algorithm-chip">AES-256-CBC + HMAC-SHA256</div>
+          <div class="algorithm-chip">AES-256-CTR + HMAC-SHA256</div>
+        </section>
+
+        <section class="panel-grid">
+          <section class="panel-glass work-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="eyebrow">Text Encrypt</p>
+                <h2>文本加密与解密</h2>
+              </div>
+              <span class="panel-badge">算法可选</span>
+            </div>
+
+            <div class="two-column-layout">
+              <form id="text-encrypt-form" class="form-stack">
+                <label class="field">
+                  <span>明文内容</span>
+                  <textarea name="text" rows="8" placeholder="输入需要加密的文本内容" required></textarea>
+                </label>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>密码</span>
+                    <input name="password" type="password" placeholder="请输入加密密码" required />
+                  </label>
+                  <label class="field">
+                    <span>加密算法</span>
+                    <select name="algorithm">
+                      <option value="aes-256-gcm">AES-256-GCM (Recommended)</option>
+                      <option value="aes-192-gcm">AES-192-GCM</option>
+                      <option value="aes-128-gcm">AES-128-GCM</option>
+                      <option value="chacha20-poly1305">ChaCha20-Poly1305</option>
+                      <option value="aes-256-cbc-hmac-sha256">AES-256-CBC + HMAC-SHA256</option>
+                      <option value="aes-256-ctr-hmac-sha256">AES-256-CTR + HMAC-SHA256</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="actions">
+                  <button class="primary-btn" type="submit">生成密文</button>
+                  <button id="copy-encrypted" class="secondary-btn" type="button">复制密文</button>
+                </div>
+                <label class="field">
+                  <span>加密结果</span>
+                  <textarea id="encrypted-output" rows="8" readonly placeholder="生成后的密文会显示在这里"></textarea>
+                </label>
+                <p id="text-encrypt-status" class="status-text">等待输入明文。</p>
+              </form>
+
+              <form id="text-decrypt-form" class="form-stack">
+                <label class="field">
+                  <span>密文内容</span>
+                  <textarea id="cipher-text" name="payload" rows="8" placeholder="粘贴 Base64 密文" required></textarea>
+                </label>
+                <label class="field">
+                  <span>密码</span>
+                  <input name="password" type="password" placeholder="请输入解密密码" required />
+                </label>
+                <div class="actions">
+                  <button class="primary-btn" type="submit">还原明文</button>
+                  <button id="fill-encrypted" class="secondary-btn" type="button">使用左侧结果</button>
+                </div>
+                <label class="field">
+                  <span>解密结果</span>
+                  <textarea id="decrypted-output" rows="8" readonly placeholder="解密后的明文会显示在这里"></textarea>
+                </label>
+                <p id="text-decrypt-status" class="status-text">等待输入密文。解密时自动识别算法。</p>
+              </form>
+            </div>
+          </section>
+
+          <section class="panel-glass work-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="eyebrow">File Encrypt</p>
+                <h2>文件加密与解密</h2>
+              </div>
+              <span class="panel-badge">自动识别解密</span>
+            </div>
+
+            <div class="two-column-layout">
+              <form id="file-encrypt-form" class="form-stack">
+                <label class="field">
+                  <span>待加密文件</span>
+                  <input name="file" type="file" required />
+                </label>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>密码</span>
+                    <input name="password" type="password" placeholder="请输入加密密码" required />
+                  </label>
+                  <label class="field">
+                    <span>加密算法</span>
+                    <select name="algorithm">
+                      <option value="aes-256-gcm">AES-256-GCM (Recommended)</option>
+                      <option value="aes-192-gcm">AES-192-GCM</option>
+                      <option value="aes-128-gcm">AES-128-GCM</option>
+                      <option value="chacha20-poly1305">ChaCha20-Poly1305</option>
+                      <option value="aes-256-cbc-hmac-sha256">AES-256-CBC + HMAC-SHA256</option>
+                      <option value="aes-256-ctr-hmac-sha256">AES-256-CTR + HMAC-SHA256</option>
+                    </select>
+                  </label>
+                </div>
+                <button class="primary-btn" type="submit">下载加密文件</button>
+                <p id="file-encrypt-status" class="status-text">加密后自动下载 `.dwe` 文件。</p>
+              </form>
+
+              <form id="file-decrypt-form" class="form-stack">
+                <label class="field">
+                  <span>已加密文件</span>
+                  <input name="file" type="file" required />
+                </label>
+                <label class="field">
+                  <span>密码</span>
+                  <input name="password" type="password" placeholder="请输入解密密码" required />
+                </label>
+                <button class="primary-btn" type="submit">恢复原始文件</button>
+                <p id="file-decrypt-status" class="status-text">解密时自动识别算法并恢复原文件。</p>
+              </form>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

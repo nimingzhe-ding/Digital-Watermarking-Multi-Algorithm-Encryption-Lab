@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>不可见水印实验室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="module-page">
+    <div class="tech-bg">
+      <div class="orb orb-cyan"></div>
+      <div class="orb orb-green"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>Watermark Lab</span>
+        </a>
+        <nav class="topnav">
+          <a class="active" href="invisible.html">不可见水印</a>
+          <a href="visible.html">可见水印</a>
+          <a href="crypto.html">加密工具箱</a>
+          <a href="library.html">作品库</a>
+        </nav>
+      </header>
+
+      <main class="module-main">
+        <section class="page-head panel-glass">
+          <div>
+            <p class="eyebrow">Module 01</p>
+            <h1>不可见水印实验室</h1>
+            <p>用于演示隐形数字水印嵌入、提取、容量估算和密码保护。提取阶段会自动识别水印内容的加密算法。</p>
+          </div>
+          <a class="back-link" href="index.html">返回功能首页</a>
+        </section>
+
+        <section class="panel-grid panel-grid-wide">
+          <section class="panel-glass work-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="eyebrow">Embed</p>
+                <h2>嵌入不可见水印</h2>
+              </div>
+              <span class="panel-badge">PNG 输出</span>
+            </div>
+
+            <div class="two-column-layout">
+              <form id="invisible-embed-form" class="form-stack">
+                <label class="field">
+                  <span>载体图片</span>
+                  <input id="invisible-image" name="image" type="file" accept="image/*" required />
+                </label>
+                <label class="field">
+                  <span>隐形水印内容</span>
+                  <input
+                    name="watermarkText"
+                    type="text"
+                    value="仅限课程实验使用"
+                    placeholder="例如：版权所有 2026 / 仅限课程实验"
+                    required
+                  />
+                </label>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>作者 / 学号</span>
+                    <input name="author" type="text" placeholder="例如：张三 20240001" />
+                  </label>
+                  <label class="field">
+                    <span>归属说明</span>
+                    <input name="owner" type="text" placeholder="例如：信息安全课程项目组" />
+                  </label>
+                </div>
+                <label class="field">
+                  <span>备注信息</span>
+                  <textarea
+                    name="note"
+                    rows="4"
+                    placeholder="可写入实验名称、日期、版权声明、项目用途等附加信息"
+                  ></textarea>
+                </label>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>提取密码（可选）</span>
+                    <input name="password" type="password" placeholder="填写后，水印内容会先加密再嵌入图片" />
+                  </label>
+                  <label class="field">
+                    <span>水印内容加密算法</span>
+                    <select name="algorithm">
+                      <option value="aes-256-gcm">AES-256-GCM (Recommended)</option>
+                      <option value="aes-192-gcm">AES-192-GCM</option>
+                      <option value="aes-128-gcm">AES-128-GCM</option>
+                      <option value="chacha20-poly1305">ChaCha20-Poly1305</option>
+                      <option value="aes-256-cbc-hmac-sha256">AES-256-CBC + HMAC-SHA256</option>
+                      <option value="aes-256-ctr-hmac-sha256">AES-256-CTR + HMAC-SHA256</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>通道模式</span>
+                    <select name="channelMode">
+                      <option value="rgb">RGB 均衡写入</option>
+                      <option value="blue">仅蓝色通道</option>
+                      <option value="green">仅绿色通道</option>
+                      <option value="red">仅红色通道</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>鲁棒模式</span>
+                    <select name="repetition">
+                      <option value="3">3 次重复，平衡模式</option>
+                      <option value="1">1 次重复，高容量模式</option>
+                      <option value="5">5 次重复，高冗余模式</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="actions actions-3">
+                  <button id="estimate-capacity" class="secondary-btn" type="button">估算容量</button>
+                  <button class="primary-btn" type="submit">嵌入不可见水印</button>
+                  <a id="invisible-download" class="secondary-btn is-disabled" href="#" download>下载结果图片</a>
+                </div>
+                <p id="invisible-status" class="status-text">等待上传载体图片。</p>
+
+                <div class="signal-box">
+                  建议始终保存本站导出的 PNG 原图，重新压缩、截图或裁剪都可能破坏不可见水印。
+                </div>
+              </form>
+
+              <div class="visual-stack">
+                <figure class="preview-panel">
+                  <figcaption>载体图片预览</figcaption>
+                  <img id="invisible-source-preview" alt="载体图片预览" />
+                </figure>
+                <figure class="preview-panel">
+                  <figcaption>嵌入结果预览</figcaption>
+                  <img id="invisible-result-preview" alt="嵌入结果预览" />
+                </figure>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="metric-panel">
+                <h3>容量估算</h3>
+                <dl id="capacity-metrics" class="metric-grid"></dl>
+              </div>
+              <div class="metric-panel">
+                <h3>嵌入指标</h3>
+                <dl id="embed-metrics" class="metric-grid"></dl>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-glass work-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="eyebrow">Extract</p>
+                <h2>提取不可见水印</h2>
+              </div>
+              <span class="panel-badge">算法自动识别</span>
+            </div>
+
+            <div class="two-column-layout">
+              <form id="invisible-extract-form" class="form-stack">
+                <label class="field">
+                  <span>带水印图片</span>
+                  <input id="extract-image" name="image" type="file" accept="image/*" required />
+                </label>
+                <label class="field">
+                  <span>提取密码（若嵌入时设置）</span>
+                  <input name="password" type="password" placeholder="没有加密可留空" />
+                </label>
+                <button class="primary-btn" type="submit">提取隐形水印</button>
+                <p id="extract-status" class="status-text">等待上传带水印图片。</p>
+
+                <figure class="preview-panel preview-panel-compact">
+                  <figcaption>待检测图片</figcaption>
+                  <img id="extract-preview" alt="待检测图片预览" />
+                </figure>
+              </form>
+
+              <div class="result-panel">
+                <div class="metric-panel result-summary">
+                  <h3>提取摘要</h3>
+                  <dl id="extract-summary" class="metric-grid"></dl>
+                </div>
+                <div class="metric-panel">
+                  <h3>提取结果</h3>
+                  <pre id="extract-json" class="code-panel">尚未提取。</pre>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

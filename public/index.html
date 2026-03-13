@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数字水印与加密实验平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="landing-page">
+    <div class="tech-bg">
+      <div class="orb orb-cyan"></div>
+      <div class="orb orb-amber"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>Watermark Lab</span>
+        </a>
+        <nav class="topnav">
+          <a href="invisible.html">不可见水印</a>
+          <a href="visible.html">可见水印</a>
+          <a href="crypto.html">加密工具箱</a>
+          <a href="library.html">作品库</a>
+        </nav>
+      </header>
+
+      <main class="landing-main">
+        <section class="hero-panel panel-glass hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Interactive Security Studio</p>
+            <h1>数字水印与多算法加密实验平台</h1>
+            <p class="hero-text">
+              首页只做功能分发，进入不同模块后可分别完成不可见水印、可见水印、多算法文本加密和文件加密演示。
+            </p>
+            <div class="hero-pills">
+              <span>Invisible Watermark</span>
+              <span>Multi-Algorithm Crypto</span>
+              <span>Node + Python</span>
+            </div>
+          </div>
+
+          <div class="hero-side">
+            <div class="status-tile">
+              <span>核心能力</span>
+              <strong>6 种加密方案</strong>
+            </div>
+            <div class="status-tile">
+              <span>主打功能</span>
+              <strong>不可见水印嵌入 / 提取</strong>
+            </div>
+            <div class="status-tile">
+              <span>适用场景</span>
+              <strong>课程项目 / 实验展示 / 答辩演示</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="module-grid">
+          <a class="module-card panel-glass" href="invisible.html">
+            <div class="module-tag">Module 01</div>
+            <h2>不可见水印实验室</h2>
+            <p>进行隐形水印嵌入、提取、容量估算和密码保护，适合展示“看不见的数字水印”。</p>
+            <ul class="feature-list">
+              <li>盲提取</li>
+              <li>容量估算</li>
+              <li>多通道写入</li>
+              <li>密码保护</li>
+            </ul>
+            <span class="card-link">进入模块</span>
+          </a>
+
+          <a class="module-card panel-glass" href="visible.html">
+            <div class="module-tag">Module 02</div>
+            <h2>可见水印设计台</h2>
+            <p>快速生成可见文字水印，适合对比展示显式水印和隐式水印的差异。</p>
+            <ul class="feature-list">
+              <li>位置控制</li>
+              <li>透明度调节</li>
+              <li>字号比例调节</li>
+              <li>结果预览</li>
+            </ul>
+            <span class="card-link">进入模块</span>
+          </a>
+
+          <a class="module-card panel-glass" href="crypto.html">
+            <div class="module-tag">Module 03</div>
+            <h2>多算法加密工具箱</h2>
+            <p>支持文本和文件加密，提供 6 种加密算法并自动识别解密格式。</p>
+            <ul class="feature-list">
+              <li>AES-GCM 系列</li>
+              <li>ChaCha20-Poly1305</li>
+              <li>CBC / CTR + HMAC</li>
+              <li>自动识别解密</li>
+            </ul>
+            <span class="card-link">进入模块</span>
+          </a>
+
+          <a class="module-card panel-glass" href="library.html">
+            <div class="module-tag">Module 04</div>
+            <h2>用户上传作品库</h2>
+            <p>集中保存实验作品、结果图和加密文件，支持上传、筛选、在线预览、下载与删除。</p>
+            <ul class="feature-list">
+              <li>本地作品持久化</li>
+              <li>按分类筛选</li>
+              <li>图像在线预览</li>
+              <li>下载与删除管理</li>
+            </ul>
+            <span class="card-link">进入模块</span>
+          </a>
+        </section>
+
+        <section class="info-grid">
+          <div class="panel-glass info-card">
+            <p class="eyebrow">Algorithms</p>
+            <h3>当前支持的加密方案</h3>
+            <p>AES-128-GCM、AES-192-GCM、AES-256-GCM、ChaCha20-Poly1305、AES-256-CBC + HMAC-SHA256、AES-256-CTR + HMAC-SHA256。</p>
+          </div>
+          <div class="panel-glass info-card">
+            <p class="eyebrow">Flow</p>
+            <h3>推荐展示路线</h3>
+            <p>先做容量估算，再嵌入不可见水印，随后提取验证，最后切换到加密工具箱演示不同算法的输出差异。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

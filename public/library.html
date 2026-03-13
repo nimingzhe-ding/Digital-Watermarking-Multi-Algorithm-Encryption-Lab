@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户上传作品库</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="module-page">
+    <div class="tech-bg">
+      <div class="orb orb-cyan"></div>
+      <div class="orb orb-green"></div>
+      <div class="orb orb-amber"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>Watermark Lab</span>
+        </a>
+        <nav class="topnav">
+          <a href="invisible.html">不可见水印</a>
+          <a href="visible.html">可见水印</a>
+          <a href="crypto.html">加密工具箱</a>
+          <a class="active" href="library.html">作品库</a>
+        </nav>
+      </header>
+
+      <main class="module-main">
+        <section class="page-head panel-glass">
+          <div>
+            <p class="eyebrow">Module 04</p>
+            <h1>用户上传作品库</h1>
+            <p>把你的水印实验图、加密文件、说明文档和演示素材集中保存到本地作品库，支持筛选、在线预览、下载和删除管理。</p>
+          </div>
+          <a class="back-link" href="index.html">返回功能首页</a>
+        </section>
+
+        <section class="panel-glass work-panel">
+          <div class="panel-title-row">
+            <div>
+              <p class="eyebrow">Upload</p>
+              <h2>上传新作品</h2>
+            </div>
+            <span class="panel-badge">本地持久化存储</span>
+          </div>
+
+          <div class="two-column-layout">
+            <form id="library-upload-form" class="form-stack">
+              <label class="field">
+                <span>作品文件</span>
+                <input id="library-file" name="file" type="file" required />
+              </label>
+              <div class="field-grid">
+                <label class="field">
+                  <span>作品标题</span>
+                  <input name="title" type="text" placeholder="例如：课程答辩终稿海报" />
+                </label>
+                <label class="field">
+                  <span>作者 / 学号</span>
+                  <input name="creator" type="text" placeholder="例如：张三 / 20240001" />
+                </label>
+              </div>
+              <div class="field-grid">
+                <label class="field">
+                  <span>作品分类</span>
+                  <select name="category">
+                    <option value="综合实验">综合实验</option>
+                    <option value="不可见水印">不可见水印</option>
+                    <option value="可见水印">可见水印</option>
+                    <option value="文本加密">文本加密</option>
+                    <option value="文件加密">文件加密</option>
+                    <option value="其他">其他</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>标签</span>
+                  <input name="tags" type="text" placeholder="用逗号分隔，例如：答辩, PNG, 最终版" />
+                </label>
+              </div>
+              <label class="field">
+                <span>作品说明</span>
+                <textarea
+                  name="description"
+                  rows="5"
+                  placeholder="可填写实验说明、用途、生成方式、加密算法或水印策略等信息"
+                ></textarea>
+              </label>
+              <div class="actions">
+                <button class="primary-btn" type="submit">上传到作品库</button>
+                <button id="library-refresh-upload" class="secondary-btn" type="button">刷新列表</button>
+              </div>
+              <p id="library-upload-status" class="status-text">等待选择要归档的作品文件。</p>
+
+              <div class="signal-box">
+                适合保存不可见水印结果图、可见水印导出图、`.dwe` 加密文件、实验说明 PDF，以及答辩阶段要统一管理的演示素材。
+              </div>
+            </form>
+
+            <div class="visual-stack">
+              <figure class="preview-panel">
+                <figcaption>上传预览</figcaption>
+                <img id="library-preview-image" alt="作品上传预览" />
+              </figure>
+              <div class="metric-panel">
+                <h3>当前选择</h3>
+                <dl id="library-upload-metrics" class="metric-grid"></dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-glass work-panel">
+          <div class="panel-title-row">
+            <div>
+              <p class="eyebrow">Library</p>
+              <h2>作品管理与筛选</h2>
+            </div>
+            <span class="panel-badge">预览 / 下载 / 删除</span>
+          </div>
+
+          <div class="toolbar">
+            <label class="field inline-field">
+              <span>关键词检索</span>
+              <input id="library-search" type="search" placeholder="搜索标题、作者、标签或文件名" />
+            </label>
+            <label class="field inline-field">
+              <span>分类筛选</span>
+              <select id="library-filter-category">
+                <option value="all">全部分类</option>
+                <option value="综合实验">综合实验</option>
+                <option value="不可见水印">不可见水印</option>
+                <option value="可见水印">可见水印</option>
+                <option value="文本加密">文本加密</option>
+                <option value="文件加密">文件加密</option>
+                <option value="其他">其他</option>
+              </select>
+            </label>
+            <button id="library-refresh" class="secondary-btn" type="button">重新加载</button>
+          </div>
+
+          <div class="mini-stats">
+            <div class="status-tile">
+              <span>作品总数</span>
+              <strong id="library-total-count">0</strong>
+            </div>
+            <div class="status-tile">
+              <span>图像作品</span>
+              <strong id="library-image-count">0</strong>
+            </div>
+            <div class="status-tile">
+              <span>文件作品</span>
+              <strong id="library-file-count">0</strong>
+            </div>
+            <div class="status-tile">
+              <span>占用空间</span>
+              <strong id="library-total-size">0 B</strong>
+            </div>
+          </div>
+
+          <p id="library-list-status" class="status-text">正在加载作品库...</p>
+          <div id="library-empty" class="empty-state is-hidden">当前没有匹配的作品记录。</div>
+          <div id="library-list" class="library-grid"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

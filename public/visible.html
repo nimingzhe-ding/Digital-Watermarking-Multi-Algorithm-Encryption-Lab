@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>可见水印设计台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="module-page">
+    <div class="tech-bg">
+      <div class="orb orb-cyan"></div>
+      <div class="orb orb-amber"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>Watermark Lab</span>
+        </a>
+        <nav class="topnav">
+          <a href="invisible.html">不可见水印</a>
+          <a class="active" href="visible.html">可见水印</a>
+          <a href="crypto.html">加密工具箱</a>
+          <a href="library.html">作品库</a>
+        </nav>
+      </header>
+
+      <main class="module-main">
+        <section class="page-head panel-glass">
+          <div>
+            <p class="eyebrow">Module 02</p>
+            <h1>可见水印设计台</h1>
+            <p>用于展示显式文字水印，适合作为不可见水印的对照实验，也适合演示传统版权标注方式。</p>
+          </div>
+          <a class="back-link" href="index.html">返回功能首页</a>
+        </section>
+
+        <section class="panel-glass work-panel">
+          <div class="panel-title-row">
+            <div>
+              <p class="eyebrow">Visible Watermark</p>
+              <h2>生成可见文字水印</h2>
+            </div>
+            <span class="panel-badge">即时预览</span>
+          </div>
+
+          <div class="two-column-layout">
+            <form id="visible-watermark-form" class="form-stack">
+              <label class="field">
+                <span>上传图片</span>
+                <input id="visible-image" name="image" type="file" accept="image/*" required />
+              </label>
+              <label class="field">
+                <span>水印文字</span>
+                <input name="text" type="text" value="课程项目演示专用" required />
+              </label>
+              <div class="field-grid">
+                <label class="field">
+                  <span>颜色</span>
+                  <input name="color" type="color" value="#d6f6ff" />
+                </label>
+                <label class="field">
+                  <span>位置</span>
+                  <select name="position">
+                    <option value="diagonal-grid">斜向平铺</option>
+                    <option value="center">居中</option>
+                    <option value="top-left">左上角</option>
+                    <option value="top-right">右上角</option>
+                    <option value="bottom-left">左下角</option>
+                    <option value="bottom-right">右下角</option>
+                  </select>
+                </label>
+              </div>
+              <div class="field-grid">
+                <label class="field">
+                  <span>透明度 <strong id="opacity-value">0.30</strong></span>
+                  <input id="opacity-range" name="opacity" type="range" min="0.05" max="1" step="0.05" value="0.30" />
+                </label>
+                <label class="field">
+                  <span>字号比例 <strong id="size-value">8%</strong></span>
+                  <input id="size-range" name="sizePercent" type="range" min="2" max="25" step="1" value="8" />
+                </label>
+              </div>
+              <label class="field">
+                <span>旋转角度 <strong id="rotation-value">-20°</strong></span>
+                <input id="rotation-range" name="rotation" type="range" min="-90" max="90" step="1" value="-20" />
+              </label>
+              <div class="actions">
+                <button class="primary-btn" type="submit">生成可见水印</button>
+                <a id="visible-download" class="secondary-btn is-disabled" href="#" download>下载结果</a>
+              </div>
+              <p id="visible-status" class="status-text">等待上传图片。</p>
+
+              <div class="signal-box">
+                这个模块更适合演示传统水印方式，可与不可见水印模块做差异对比。
+              </div>
+            </form>
+
+            <div class="visual-stack">
+              <figure class="preview-panel">
+                <figcaption>原图预览</figcaption>
+                <img id="visible-source-preview" alt="可见水印原图预览" />
+              </figure>
+              <figure class="preview-panel">
+                <figcaption>结果预览</figcaption>
+                <img id="visible-result-preview" alt="可见水印结果预览" />
+              </figure>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
